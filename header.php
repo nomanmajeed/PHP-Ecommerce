@@ -4,7 +4,7 @@
 		<div id="top-header">
 			<div class="container">
 				<div class="pull-left">
-					<span>Welcome to E-shop!</span>
+					<span>Welcome to E-Store!</span>
 				</div>
 			</div>
 		</div>
@@ -30,3 +30,5 @@
 		<!-- container -->
 	</header>
 	<!-- /HEADER -->
+
+
