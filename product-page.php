@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>E-SHOP HTML Template</title>
+		<title>E-Store</title>
 		<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 		<link type="text/css" rel="stylesheet" href="css/slick.css" />
@@ -17,83 +17,51 @@
 	
 <body>
 	<!-- HEADER -->
-	<header>
-		<!-- top Header -->
-		<div id="top-header">
-			<div class="container">
-				<div class="pull-left">
-					<span>Welcome to E-shop!</span>
-				</div>
-			</div>
-		</div>
-		<!-- /top Header -->
-
-
-		<!-- header -->
-		<div id="header">
-			<div class="container">
-				<div class="pull-left">
-					<!-- Logo -->
-					<div class="header-logo">
-						<a class="logo" href="#">
-							<img src="./img/logo.png" alt="">
-						</a>
-					</div>
-					<!-- /Logo -->
-				</div>
-				
-			</div>
-			<!-- header -->
-		</div>
-		<!-- container -->
-	</header>
+	<?php
+	include 'header.php';
+	?>
 	<!-- /HEADER -->
 
 	<!-- NAVIGATION -->
-	<div id="navigation">
-		<!-- container -->
-		<div class="container">
-			<div id="responsive-nav">
-				<!-- category nav -->
-				<div class="category-nav show-on-click">
-					<span class="category-header show-onclick">Categories <i class="fa fa-list"></i></span>
-					<ul class="category-list">
-						
-						<li><a href="#">Men’s Clothing</a></li>
-						<li><a href="#">Computer & Office</a></li>
-						<li><a href="#">Consumer Electronics</a></li>
-						<li><a href="#">Bags & Shoes</a></li>
-						<li><a href="#">View All</a></li>
-					</ul>
-				</div>
-				<!-- /category nav -->
-
-				<!-- menu nav -->
-				<div class="menu-nav">
-					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-					<ul class="menu-list">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Women</a></li>
-						<li><a href="#">Sales</a></li>
-					</ul>
-				</div>
-				<!-- menu nav -->
-			</div>
-		</div>
-		<!-- /container -->
-	</div>
+	<?php
+	include 'navigation.php';
+	?>
 	<!-- /NAVIGATION -->
 
+	<?php
+		if(isset($_GET['id'])){
+			$itemid = $_GET['id'];
+			$id=(int)$itemid;
+			//echo gettype($id);
+		} else {
+			echo "failed";
+		}
+		
+		require("config.php");
+		$connection = mysqli_connect(DBHOST, DBUSER, DBPASSWORD, DBNAME);
+	
+		if (mysqli_connect_error()) {
+			die(mysqli_connect_error());
+		}
+		//echo "Hello";
+		//$sql = "SELECT * FROM items where item_id=$id";
+		//echo "hey";
+		$sql="Select * from items i join itempictures p on(i.item_id =p.item_id and i.item_id=$id) ";
+		
+		$result = mysqli_query($connection, $sql);
+		//print_r($result);
+		while($row=mysqli_fetch_assoc($result)){
+			$pic=$row['pic'];
+			//print_r($row);
+	?>
 
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
 				<li><a href="#">Home</a></li>
-				<li><a href="#">Products</a></li>
-				<li><a href="#">Category</a></li>
-				<li class="active">Product Name Goes Here</li>
+				<li><a href="products.php">Products</a></li>
+				<li class="active"><?php echo $row['item_category']?></li>
 			</ul>
 		</div>
 	</div>
@@ -110,7 +78,7 @@
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-								<img src="./img/main-product01.jpg" alt="">
+								<img src="./img/<?php echo $pic ?>.jpg" alt="">
 							</div>
 							
 						</div>
@@ -118,12 +86,11 @@
 					</div>
 					<div class="col-md-6">
 						<div class="product-body">
-							<h2 class="product-name">Product Name Goes Here</h2>
-							<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+							<h2 class="product-name"><?php echo $row['item_name']?></h2>
+							<h3 class="product-price"><?php echo $row['item_price']?> </h3>
 							<p><strong>Availability:</strong> In Stock</p>
-							<p><strong>Brand:</strong> E-SHOP</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-								dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p><strong>Brand:</strong> <?php echo $row['item_brand']?></p>
+							<p><strong>Description:</strong><br> <?php echo $row['item_description']?></p>
 							<div class="product-btns">
 								<div class="qty-input">
 									<span class="text-uppercase">QTY: </span>
@@ -147,103 +114,13 @@
 		<!-- /container -->
 	</div>
 	<!-- /section -->
-
+	<?php
+        }
+    ?>
 	<!-- FOOTER -->
-	<footer id="footer" class="section section-grey">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<!-- footer logo -->
-						<div class="footer-logo">
-							<a class="logo" href="#">
-		            <img src="./img/logo.png" alt="">
-		          </a>
-						</div>
-						<!-- /footer logo -->
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
-
-						<!-- footer social -->
-						<ul class="footer-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-						<!-- /footer social -->
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">My Account</h3>
-						<ul class="list-links">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">My Wishlist</a></li>
-							<li><a href="#">Compare</a></li>
-							<li><a href="#">Checkout</a></li>
-							<li><a href="#">Login</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<div class="clearfix visible-sm visible-xs"></div>
-
-				<!-- footer widget -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Customer Service</h3>
-						<ul class="list-links">
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Shiping & Return</a></li>
-							<li><a href="#">Shiping Guide</a></li>
-							<li><a href="#">FAQ</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /footer widget -->
-
-				<!-- footer subscribe -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="footer">
-						<h3 class="footer-header">Stay Connected</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-						<form>
-							<div class="form-group">
-								<input class="input" placeholder="Enter Email Address">
-							</div>
-							<button class="primary-btn">Join Newslatter</button>
-						</form>
-					</div>
-				</div>
-				<!-- /footer subscribe -->
-			</div>
-			<!-- /row -->
-			<hr>
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<!-- footer copyright -->
-					<div class="footer-copyright">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;2019 All rights reserved 
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</div>
-					<!-- /footer copyright -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</footer>
+	<?php
+	include 'footer.php';;
+	?>
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
