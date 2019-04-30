@@ -9,10 +9,9 @@
 					<ul class="category-list">
 						
 						<li><a href="#">Men’s Clothing</a></li>
-						<li><a href="#">Computer & Office</a></li>
-						<li><a href="#">Consumer Electronics</a></li>
-						<li><a href="#">Bags & Shoes</a></li>
-						<li><a href="#">View All</a></li>
+						<li><a href="#">Laptops</a></li>
+						<li><a href="#">Shoes</a></li>
+						<li><a href="#">Electronics</a></li>
 					</ul>
 				</div>
 				<!-- /category nav -->
@@ -21,10 +20,8 @@
 				<div class="menu-nav">
 					<span class="menu-header">Menu <i class="fa fa-bars"></i></span>
 					<ul class="menu-list">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Women</a></li>
-						<li><a href="#">Sales</a></li>
+						<li><a href="index.php">Homepage</a></li>
+						<li><a href="products.php">Products</a></li>
 					</ul>
 				</div>
 				<!-- menu nav -->
