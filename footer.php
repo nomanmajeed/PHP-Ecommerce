@@ -60,7 +60,7 @@
 					</div>
 				</div>
 				<!-- /footer widget -->
-
+		
 				<!-- footer subscribe -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="footer">
